@@ -34,7 +34,6 @@ def is_safe(board, row, col, num):
     # Validar bloque 3x3
     start_row = (row // 3) * 3
     start_col = (col // 3) * 3
-
     for i in range(3):
         for j in range(3):
             if board[start_row + i][start_col + j] == num:
@@ -51,7 +50,7 @@ def fill_board_random(board):
     row, col = empty
 
     nums = list(range(1, 10))
-    random.shuffle(nums)  # 🔥 aleatoriedad
+    random.shuffle(nums)
 
     for num in nums:
         if is_safe(board, row, col, num):
@@ -74,12 +73,13 @@ def generate_full_board():
 
 def remove_numbers(board, difficulty="medium"):
     levels = {
-        "easy": 30,
-        "medium": 40,
-        "hard": 50
+        "easy": 20,
+        "medium": 30,
+        "hard": 45,
+        "expert": 50
     }
 
-    remove_count = levels.get(difficulty, 40)
+    remove_count = levels.get(difficulty, 30)
 
     while remove_count > 0:
         row = random.randint(0, 8)
@@ -94,8 +94,8 @@ def remove_numbers(board, difficulty="medium"):
 
 def generate_sudoku(difficulty="medium"):
     full_board = generate_full_board()
-    puzzle = copy.deepcopy(full_board)
+    solution = copy.deepcopy(full_board)
 
-    remove_numbers(puzzle, difficulty)
+    puzzle = remove_numbers(copy.deepcopy(solution), difficulty)
 
-    return puzzle
+    return puzzle, solution

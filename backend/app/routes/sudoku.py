@@ -10,11 +10,9 @@ router = APIRouter(prefix="/sudoku", tags=["Sudoku"])
 
 @router.post("/solve")
 def solve(request: SudokuRequest):
-    print("Received board:")
     board = copy.deepcopy(request.board)
 
     if solver_sudoku(board):
-        print("Solved board:")
         return {"solution": board}
 
     return {"error": "No solution for the given board"}
@@ -30,9 +28,10 @@ def validate(request: SudokuRequest):
 
 @router.get("/generate")
 def generate(difficulty: str = "medium"):
-    board = generate_sudoku(difficulty)
+    puzzle, puzzle_resolved = generate_sudoku(difficulty)
 
     return {
         "difficulty": difficulty,
-        "board": board
+        "board": puzzle,
+        "solution": puzzle_resolved
     }

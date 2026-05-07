@@ -1,5 +1,5 @@
 import { MAX_MISTAKES } from './types/constants.js';
-import { generatePuzzleFromBackend, validateBoard } from './services/api.js';
+import { generatePuzzleFromBackend } from './services/api.js';
 
 import {
     gameState,
@@ -160,14 +160,14 @@ function endGame(won) {
     stopTimer();
     
     if (won) {
-        showMessage(`🎉 Puzzle Complete! Time: ${getCurrentTime()}`, 'success');
+        showMessage(`Puzzle Complete! Time: ${getCurrentTime()}`, 'success');
         for (let r = 0; r < 9; r++) {
             for (let c = 0; c < 9; c++) {
                 setTimeout(() => animateCell(r, c, 'cell--success', 500), (r * 9 + c) * 15);
             }
         }
     } else {
-        showMessage(`😔 Game Over — ${MAX_MISTAKES} mistakes!`, 'error');
+        showMessage(`Game Over — ${MAX_MISTAKES} mistakes!`, 'error');
         for (let r = 0; r < 9; r++) {
             for (let c = 0; c < 9; c++) {
                 if (gameState.board[r][c] !== gameState.solution[r][c]) {
